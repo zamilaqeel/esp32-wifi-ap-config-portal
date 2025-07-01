@@ -9,6 +9,12 @@ This project lets you configure Wi-Fi credentials on an ESP32 via a captive port
 - Stores credentials and connects to Wi-Fi automatically
 - Button to trigger AP mode for reconfiguration
 
+## Requirements
+
+- ESP32-S3 development board
+- [PlatformIO](https://platformio.org/) (via VS Code)
+- USB-A to USB-C cable
+
 ## How it works
 
 1. On first boot (or if no SSID is set), ESP32 starts as an AP (`test_config`).
