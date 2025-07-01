@@ -32,7 +32,7 @@ esp32-wifi-ap-config-portal/
 
 ## Usage
 
-- Build and upload with PlatformIO or Arduino IDE.
+- Build and upload with PlatformIO.
 - Press the boot button to enter AP mode at any time.
 
 ---
