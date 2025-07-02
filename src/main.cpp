@@ -4,13 +4,13 @@
 #include <FS.h>
 #include <SPIFFS.h>
 
-const char* apSSID = "test_config";
-const char* apPass = "12345678";
+const char* apSSID = "test_config"; // Access Point SSID
+const char* apPass = "12345678"; // Access Point Password
 
-WebServer server(80);
+WebServer server(80); // Web server on port 80
 
-String ssid = "";
-String password = "";
+String ssid = ""; // Wi-Fi SSID
+String password = ""; // Wi-Fi Password
 
 const int ButtonPin = 0;
 bool apMode = false;
@@ -172,16 +172,16 @@ void handleRoot() {
     </html>
   )rawliteral";
 
-  server.send(200, "text/html", html);
+  server.send(200, "text/html", html); // Send HTML response
 }
 
 void handleSubmit() {
-  ssid = server.arg("ssid");
-  password = server.arg("password");
+  ssid = server.arg("ssid"); // Get SSID from URL arguments
+  password = server.arg("password"); // Get password from URL arguments
 
-  Serial.println("Received URL arguments:");
+  Serial.println("Received URL arguments:"); // Print all URL arguments
   for (int i = 0; i < server.args(); i++) {
-    Serial.printf("Arg %s = %s\n", server.argName(i).c_str(), server.arg(i).c_str());
+    Serial.printf("Arg %s = %s\n", server.argName(i).c_str(), server.arg(i).c_str()); // Print each argument name and value
   }
 
   if (ssid.length() == 0) {
@@ -194,7 +194,7 @@ void handleSubmit() {
   Serial.println("SSID: " + ssid);
   Serial.println("Password: " + password);
 
-  WiFi.softAPdisconnect(true);
+  WiFi.softAPdisconnect(true); // Disconnect from Access Point if connected
   apMode = false;
   server.stop();
 
@@ -219,14 +219,14 @@ void enterAccessPointMode() {
   Serial.println("Entering Access Point Mode...");
   apMode = true;
 
-  WiFi.softAP(apSSID, apPass);
+  WiFi.softAP(apSSID, apPass); // Start Access Point with SSID and Password
   Serial.println("Access Point started.");
   Serial.print("AP IP address: ");
   Serial.println(WiFi.softAPIP());
 
-  server.on("/", handleRoot);
-  server.on("/submit", handleSubmit);
-  server.serveStatic("/logo.png", SPIFFS, "/logo.png");
+  server.on("/", handleRoot); // Handle root URL
+  server.on("/submit", handleSubmit); // Handle form submission
+  server.serveStatic("/logo.png", SPIFFS, "/logo.png"); // Serve static logo image from SPIFFS
   server.begin();
 }
 
@@ -265,6 +265,6 @@ void loop() {
   }
 
   if (apMode) {
-    server.handleClient();
+    server.handleClient(); // Handle incoming client requests
   }
 }
